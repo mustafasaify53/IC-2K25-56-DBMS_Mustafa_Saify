@@ -1,0 +1,36 @@
+mysql> use mustafadbms;
+Database changed
+
+mysql> CREATE TABLE IF NOT EXISTS jobs ( 
+    -> JOB_ID INT NOT NULL UNIQUE PRIMARY KEY, 
+    -> JOB_TITLE VARCHAR(35) NOT NULL DEFAULT ' ', 
+    -> MIN_SALARY DECIMAL(6,0) DEFAULT 8000, 
+    -> MAX_SALARY DECIMAL(6,0) DEFAULT NULL
+    -> ) ENGINE=InnoDB;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS employees (
+    -> employee_id INT NOT NULL PRIMARY KEY,
+    -> first_name VARCHAR(20),
+    -> last_name VARCHAR(25) NOT NULL,
+    -> job_id INT NULL,
+    -> salary DECIMAL(8,2),
+    -> FOREIGN KEY (job_id) REFERENCES jobs(JOB_ID)
+    ->     ON DELETE SET NULL
+    ->     ON UPDATE SET NULL
+    -> ) ENGINE=InnoDB;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESCRIBE employees;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| employee_id | int          | NO   | PRI | NULL    |       |
+| first_name  | varchar(20)  | YES  |     | NULL    |       |
+| last_name   | varchar(25)  | NO   |     | NULL    |       |
+| job_id      | int          | YES  | MUL | NULL    |       |
+| salary      | decimal(8,2) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql>
